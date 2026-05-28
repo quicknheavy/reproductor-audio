@@ -2,22 +2,27 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi Reproductor Inteligente</title>
+    <title>Pirate Spotify</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="pantalla-contenido">
-        <iframe src="albums.html" name="ventana_principal"></iframe>
+    <div class="content">
+        <iframe src="albums.html"></iframe>
     </div>
 
     <div class="barra-reproductor">
         <h3 id="reproductor-titulo">Ninguna canción seleccionada</h3>
-        <audio id="reproductor-audio" controls src="" onended="siguienteCancion()"></audio>
+        <audio id="reproductor-audio" src="" onended="siguienteCancion()"></audio>
+        <div class="custom-audio-player">
+            <button id="play" onclick="playPause()">Pause</span>
+        </div>
     </div>
 
     <script>
         const audio = document.getElementById('reproductor-audio');
         const titulo = document.getElementById('reproductor-titulo');
+        const playButton = document.getElementById('play');
         
         // Aquí el reproductor guardará la lista que le mande el disco
         let listaActual = [];
@@ -48,6 +53,16 @@
                 reproducirTema(); // La reproduce
             } else {
                 titulo.innerText = "Fin del álbum";
+            }
+        }
+
+        playPause(){
+            if(audio.paused){
+                audio.play;
+                playButton.innerText = "Paused";
+            } else {
+                audio.pause;
+                playButton.innerText = "Play";
             }
         }
     </script>
