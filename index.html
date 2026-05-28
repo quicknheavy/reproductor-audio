@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Reproductor Inteligente</title>
+</head>
+<body>
+
+    <div class="pantalla-contenido">
+        <iframe src="albums.html" name="ventana_principal"></iframe>
+    </div>
+
+    <div class="barra-reproductor">
+        <h3 id="reproductor-titulo">Ninguna canción seleccionada</h3>
+        <audio id="reproductor-audio" controls src="" onended="siguienteCancion()"></audio>
+    </div>
+
+    <script>
+        const audio = document.getElementById('reproductor-audio');
+        const titulo = document.getElementById('reproductor-titulo');
+        
+        // Aquí el reproductor guardará la lista que le mande el disco
+        let listaActual = [];
+        let indiceActual = 0;
+
+        // Esta función recibe el paquete completo desde el iframe del disco
+        function cargarPlaylist(lista, indiceAEmpezar) {
+            listaActual = lista;
+            indiceActual = indiceAEmpezar;
+            reproducirTema();
+        }
+
+        // Función interna que se encarga de hacer sonar lo que toque
+        function reproducirTema() {
+            if (listaActual.length > 0) {
+                const cancion = listaActual[indiceActual];
+                audio.src = cancion.url;
+                titulo.innerText = cancion.titulo;
+                audio.play();
+            }
+        }
+
+        // ¡ESTO ES LO QUE BUSCABAS! Se ejecuta automáticamente al terminar un tema
+        function siguienteCancion() {
+            // Comprobamos si quedan más canciones en la lista
+            if (indiceActual < listaActual.length - 1) {
+                indiceActual++; // Sumamos 1 al contador (pasa a la siguiente)
+                reproducirTema(); // La reproduce
+            } else {
+                titulo.innerText = "Fin del álbum";
+            }
+        }
+    </script>
+</body>
+</html>
