@@ -3,24 +3,39 @@
     <head>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
+    <body class="album">
         <a href="albums.html">⬅ Volver</a>
-        <h2>Álbum: Clásicos</h2>
-
-        <ul>
-            <li onclick="reproducirAqui(0)">01. Primera Canción</li>
-            <li onclick="reproducirAqui(1)">02. Segunda Canción</li>
-        </ul>
-
+        <div class="albumTitle">
+            <img src="https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0MzIxNSwiZXhwIjo1MzEyMDc1MjE1fQ.lg2-HHmqapQSwgkZTOHsnfDArX7tbMGT_EZ3WSLMtoY" class="cover">
+            <h2>La Polla Playlist</h2>
+        </div>
+        <div class="playlistContents">
+            <span class="playableSong" onclick="reproducirAqui(0)">Primera Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(1)">Segunda Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(0)">Primera Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(1)">Segunda Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(0)">Primera Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(1)">Segunda Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(0)">Primera Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(1)">Segunda Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(0)">Primera Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(1)">Segunda Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(0)">Primera Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(1)">Segunda Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(0)">Primera Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(1)">Segunda Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(0)">Primera Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(1)">Segunda Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(0)">Primera Canción</span>
+            <span class="playableSong" onclick="reproducirAqui(1)">Segunda Canción</span>
+        </div>
         <script>
-            // Esta es la lista de este disco en concreto
             const cancionesEsteDisco = [
                 { titulo: "Balada Inculta", url: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/prueba/Balada-Inculta.mp3?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJwcnVlYmEvQmFsYWRhLUluY3VsdGEubXAzIiwiaWF0IjoxNzgwMDA1MjU2LCJleHAiOjUzMTIwMzcyNTZ9.UqAX94qhao5m23VNZmcdShPaYGZkYZ8rpQYHnbQs1xw" },
                 { titulo: "10 Perritos", url: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/prueba/10-Perritos.mp3?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJwcnVlYmEvMTAtUGVycml0b3MubXAzIiwiaWF0IjoxNzgwMDA1MTYzLCJleHAiOjUzMTIwMzcxNjN9.8Tnb0-B-nEyblLqWXzwt6ETB8WduOXEPmP6txZf7f4o" },
             ];
 
             function reproducirAqui(indice) {
-                // Le mandamos al padre la lista entera de este disco y el número de canción
                 window.parent.cargarPlaylist(cancionesEsteDisco, indice);
             }
         </script>
