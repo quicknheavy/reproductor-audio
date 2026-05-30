@@ -7,6 +7,59 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <a href="salvelapollarecords.html">Salve - La Polla Records</a>
+    <input type="text" id="buscador" onkeyup="filtrarDiscos()" placeholder="Busca por disco o autor">
+    <div id="contenedor-discos">
+
+    </div>
+
+    <script>
+        const misDiscos = [
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" },
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" },
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" },
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" },
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" },
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" },
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" },
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" },
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" },
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" },
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" },
+            { titulo: "La Polla Playlist", artista: "La Polla Records", url: "salvelapollarecords.html", img: "https://nsjqgtopdtnujrclxicy.supabase.co/storage/v1/object/sign/covers/salvelapolla.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82ZmZjMTU2OS1iZDgxLTQ1ZDAtOGIzYi01NjUwZmUzMDAyNGIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJjb3ZlcnMvc2FsdmVsYXBvbGxhLmpwZyIsImlhdCI6MTc4MDA0NDc5NSwiZXhwIjo1MzEyMDc2Nzk1fQ.9fTCrRtMFrvWaj8fknZu-d-9ddZh294O5sjTqzt6edE" }
+        ];
+
+        const contenedor = document.getElementById('contenedor-discos');
+
+        function mostrarDiscos(lista){
+            contenedor.innerHTML = "";
+
+            if (lista.length === 0){
+                contenedor.innerHTML = "<p>No se encuentra</p>";
+                return;
+            }
+
+            lista.forEach(disco => {
+                const tarjeta = document.createElement('span');
+                tarjeta.className = 'album-card';
+                tarjeta.style.cursor = "pointer";
+                tarjeta.innerHTML = `<img src="${disco.img}" class="coverImg" />${disco.titulo} - ${disco.artista}`
+                tarjeta.onclick = () => {
+                    window.location.href = disco.url;
+                }
+                contenedor.appendChild(tarjeta);
+            })
+        }
+
+        function filtrarDiscos(){
+            const textoUsuario = document.getElementById('buscador').value.toLowerCase();
+            const discosFiltrados = misDiscos.filter(disco => {
+                return disco.titulo.toLowerCase().includes(textoUsuario) || disco.artista.toLowerCase().includes(textoUsuario);
+            });
+
+            mostrarDiscos(discosFiltrados);
+        }
+
+        mostrarDiscos(misDiscos);
+    </script>
 </body>
 </html>
