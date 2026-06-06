@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contenedor-album">
+        <h1 id="titulo-album">a</h1>
+        <div class="playlistContents" id="lista">
+            <span>Nothing here yet</span>
+        </div>
+    </div>
+
+    <script>
+        const parametrosURL = new URLSearchParams(window.location.search);
+        const idDisco = URLSearchParams.get('id');
+
+        const titulo = document.getElementById('titulo-album');
+        const lista = document.getElementById('lista');
+
+        if(!idDisco){
+            window.location.href = 'index.html';
+        }
+        
+        function reproducirAqui(indice) {
+            window.parent.cargarPlaylist(cancionesEsteDisco, indice);
+        }
+        
+        fetch('canciones.json')
+            .then(respuesta => respuesta.json())
+            .then(baseDeDatosCanciones => {
+                const cancionesDelAlbum = baseDeDatosCanciones[idDisco];
+
+                if (cancionesDelAlbum){
+                    titulo.innerText = `UwU`;
+                    lista.innerHTML = "";
+
+                    cancionesDelAlbum.forEach(cancion => {
+                        const itemLista = document.createElement('span');
+                        itemLista.innerHTML = `<span class="playableSong" onclick="reproducirAqui(${cancion.orden})>${cancion.titulo}</span>`;
+                        lista.appendChild(itemLista);
+                    });
+                } else {
+                    titulo.innerText = "DISHCO NON ENKONTRAU"
+                }
+            })
+    </script>
+</body>
+</html>
