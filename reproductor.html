@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pirate Spotify</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="index">
+
+    <div class="content">
+        <iframe src="albums.html"></iframe>
+    </div>
+
+    <div class="barra-reproductor">
+        <h3 id="reproductor-titulo">Ninguna canción seleccionada</h3>
+        <audio id="reproductor-audio" src="" onended="siguienteCancion()"></audio>
+        <div class="custom-audio-player">
+            <div class="contenedor-progreso">
+                <span id="tiempo-actual">0:00</span>
+                <input type="range" id="barra-progreso" value="0" min="0" max="0">
+                <span id="tiempo-total">0:00</span>
+            </div>
+            <div class="controles">
+                <button id="anterior" onclick="anteriorCancion()">bac</button>
+                <button id="lilback" onclick="changeTime(false)">lb</button>
+                <button id="play" onclick="playPause()">❚❚</button>
+                <button id="lilnext" onclick="changeTime()">ln</button>
+                <button id="siguiente" onclick="siguienteCancion()">nex</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('reproductor-audio');
+        const titulo = document.getElementById('reproductor-titulo');
+        const playButton = document.getElementById('play');
+        const barraProgreso = document.getElementById('barra-progreso');
+        const tiempoActualTxt = document.getElementById('tiempo-actual');
+        const tiempoTotalTxt = document.getElementById('tiempo-total');
+        
+        // Aquí el reproductor guardará la lista que le mande el disco
+        let listaActual = [];
+        let indiceActual = 0;
+
+        // Esta función recibe el paquete completo desde el iframe del disco
+        function cargarPlaylist(lista, indiceAEmpezar) {
+            listaActual = lista;
+            indiceActual = indiceAEmpezar;
+            reproducirTema();
+        }
+
+        // Función interna que se encarga de hacer sonar lo que toque
+        function reproducirTema() {
+            if (listaActual.length > 0) {
+                const cancion = listaActual[indiceActual];
+                const projectId = "nsjqgtopdtnujrclxicy";
+                const bucketName = "songs";
+                audio.src = `https://${projectId}.supabase.co/storage/v1/object/public/${bucketName}/${cancion.id}.webm`
+                titulo.innerText = cancion.titulo;
+                audio.play();
+            }
+        }
+
+        function siguienteCancion() {
+            if (indiceActual < listaActual.length - 1) {
+                indiceActual++;
+                reproducirTema();
+            } else {
+                titulo.innerText = "Fin del álbum";
+                
+            }
+        }
+
+        function anteriorCancion() {
+            if (indiceActual > 0) {
+                indiceActual--;
+                reproducirTema();
+            }
+        }
+
+        function playPause(){
+            if(audio.paused){
+                audio.play();
+                playButton.innerText = "❚❚";
+            } else {
+                audio.pause();
+                playButton.innerText = "▶";
+            }
+        }
+
+        function formatearTiempo(segundos){
+            if (isNaN(segundos)) return "0:00";
+            const min = Math.floor(segundos / 60);
+            const sec = Math.floor(segundos % 60);
+            return min + ":" + (sec < 10 ? "0" : "") + sec;
+        }
+
+        audio.addEventListener('loadedmetadata', () => {
+            barraProgreso.max = audio.duration;
+            tiempoTotalTxt.innerText = formatearTiempo(audio.duration);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (!usuarioArrastrando){
+                barraProgreso.value = audio.currentTime;
+            }
+            tiempoActualTxt.innerText = formatearTiempo(audio.currentTime);
+        })
+
+        let usuarioArrastrando = false;
+
+        barraProgreso.addEventListener('input', () => {
+            usuarioArrastrando = true;
+            tiempoActualTxt.innerText = formatearTiempo(barraProgreso.value);
+        });
+
+        barraProgreso.addEventListener('change', () => {
+            audio.currentTime = barraProgreso.value;
+            usuarioArrastrando = false;
+        });
+
+        function changeTime(forward = true){
+            if (forward){
+                audio.currentTime = audio.currentTime + 10;
+            } else {
+                audio.currentTime = audio.currentTime - 10;
+            }
+        }
+    </script>
+</body>
+</html>
