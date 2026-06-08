@@ -137,3 +137,19 @@ span.playableSong{
     border-radius: 4vh;
     padding-left: 2vh;
 }
+
+.contenedor-album{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+img#caratula-album-reader{
+    width: 40vh;
+}
