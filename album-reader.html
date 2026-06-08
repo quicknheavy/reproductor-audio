@@ -17,8 +17,7 @@
     </div>
 
     <script>
-        const parametrosURL = new URLSearchParams(window.location.search);
-        const idDisco = parametrosURL.get('id');
+        const idDisco = window.location.search.split('id=')[1]?.split('&')[0];
 
         const titulo = document.getElementById('titulo-album');
         const artistaTxt = document.getElementById('artista-album');
