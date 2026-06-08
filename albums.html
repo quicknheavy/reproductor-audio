@@ -18,12 +18,12 @@
         let misDiscos = [];
         const contenedor = document.getElementById('contenedor-discos');
 
-        fetch('discos.json')
+        fetch('https://cdn.jsdelivr.net/gh/quicknheavy/music-database@main/discos.json')
             .then(respuesta => respuesta.json())
             .then(datos => {
                 misDiscos = datos;
                 mostrarDiscos(misDiscos);
-            })
+            });
 
         function mostrarDiscos(lista){
             contenedor.innerHTML = "";
