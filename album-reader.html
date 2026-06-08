@@ -8,7 +8,9 @@
 </head>
 <body>
     <div class="contenedor-album">
-        <h1 id="titulo-album">a</h1>
+        <img src="" alt="" id="caratula-album-reader" style="display: none;">
+        <h1 id="titulo-album">Caggando</h1>
+        <h2 id="artista-album">Lo hizo tu puta madre</h2>
         <div class="playlistContents" id="lista">
             <span>Nothing here yet</span>
         </div>
@@ -16,37 +18,56 @@
 
     <script>
         const parametrosURL = new URLSearchParams(window.location.search);
-        const idDisco = URLSearchParams.get('id');
+        const idDisco = parametrosURL.get('id');
 
         const titulo = document.getElementById('titulo-album');
+        const artistaTxt = document.getElementById('artista-album');
+        const cover = document.getElementById('caratula-album-reader');
         const lista = document.getElementById('lista');
 
         if(!idDisco){
             window.location.href = 'index.html';
         }
-        
-        function reproducirAqui(indice) {
-            window.parent.cargarPlaylist(cancionesEsteDisco, indice);
-        }
-        
-        fetch('canciones.json')
-            .then(respuesta => respuesta.json())
-            .then(baseDeDatosCanciones => {
-                const cancionesDelAlbum = baseDeDatosCanciones[idDisco];
 
-                if (cancionesDelAlbum){
-                    titulo.innerText = `UwU`;
-                    lista.innerHTML = "";
+        Promise.all([
+            fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/music-database@main/discos.json?v=${Date.now()}`).then(res => res.json()),
+            fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/music-database@main/canciones.json?v=${Date.now()}`).then(res => res.json())
+        ])
+        .then(([baseDatosDiscos, baseDatosCanciones]) => {
+            const infoDelDisco = baseDatosDiscos.find(disco => disco.id === idDisco);
 
-                    cancionesDelAlbum.forEach(cancion => {
-                        const itemLista = document.createElement('span');
-                        itemLista.innerHTML = `<span class="playableSong" onclick="reproducirAqui(${cancion.orden})>${cancion.titulo}</span>`;
-                        lista.appendChild(itemLista);
-                    });
-                } else {
-                    titulo.innerText = "DISHCO NON ENKONTRAU"
-                }
-            })
+            if (infoDelDisco){
+                titulo.innerHTML = infoDelDisco.titulo;
+                artistaTxt.innerHTML = infoDelDisco.artista;
+                cover.src = infoDelDisco.img;
+                cover.style.display = "block";
+            } else {
+                titulo.innerHTML = "DISCHO NON ENKONTRAU";
+            }
+
+            const cancionesDelAlbum = baseDatosCanciones[idDisco];
+
+            if(cancionesDelAlbum && cancionesDelAlbum.length > 0){
+                lista.innerHTML = "";
+                cancionesDelAlbum.forEach((cancion, i) => {
+                    const itemLista = document.createElement('span');
+                    itemLista.className = "playableSong";
+                    itemLista.style.cursor = "pointer";
+
+                    itemLista.onclick = () => {
+                        window.parent.cargarPlaylist(cancionesDelAlbum, i);
+                    };
+                    
+                    itemLista.innerHTML = `${cancion.titulo}`;
+                    lista.appendChild(itemLista);
+                });
+            } else {
+                const aviso = document.createElement('span');
+                aviso.innerHTML = "El disco no incluye ninguna cancion o esta roto";
+                lista.innerHTML = "";
+                lista.appendChild(aviso);
+            }
+        });
     </script>
 </body>
 </html>
