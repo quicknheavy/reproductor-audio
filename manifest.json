@@ -1,0 +1,16 @@
+{
+  "short_name": "Spoti",
+  "name": "Spoti - Mi Reproductor",
+  "icons": [
+    {
+      "src": "icono.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#000000",
+  "theme_color": "#199946",
+  "display": "standalone",
+  "orientation": "portrait"
+}
