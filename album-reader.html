@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="album-reader">
     <div class="contenedor-album">
         <img src="" alt="" id="caratula-album-reader" style="display: none;">
         <h1 id="titulo-album">Caggando</h1>
@@ -37,7 +37,8 @@
 
             if (infoDelDisco){
                 titulo.innerHTML = infoDelDisco.titulo;
-                artistaTxt.innerHTML = infoDelDisco.artista;
+                artistaTxt.innerHTML = `<a href="artista.html?artista=${encodeURIComponent(infoDelDisco.artista)}" style="text-decoration: none; color: #fff;">${infoDelDisco.artista}</a>
+                `;
                 cover.src = infoDelDisco.img;
                 cover.style.display = "block";
             } else {
