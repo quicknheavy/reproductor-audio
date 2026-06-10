@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Pirate Spotify</title>
     <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <body class="index">
 
@@ -14,7 +14,7 @@
 
     <div class="barra-reproductor">
         <h3 id="reproductor-titulo">Ninguna canción seleccionada</h3>
-        <audio id="reproductor-audio" src="" onended="siguienteCancion()" crossorigin="anonymous"></audio>
+        <audio id="reproductor-audio" src="" crossorigin="anonymous"></audio>
         <div class="custom-audio-player">
             <div class="contenedor-progreso">
                 <span id="tiempo-actual">0:00</span>
@@ -65,10 +65,11 @@
                     titulo.innerText = cancion.titulo;
                     audio.onended = function(){
                         URL.revokeObjectURL(urlTemporal);
+                        siguienteCancion();
                     };
                 } catch (error){
                     console.error("Error al cargar la canción: ", error);
-                    titulo.innerText("Error al cargar la pista");
+                    titulo.innerText = "Error al cargar la pista";
                 }
             }
         }
