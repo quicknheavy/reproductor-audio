@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contenedor-album">
+        <h1 id="nombre-artista-cabecera">Cargando artista...</h1>
+        <p>Discos disponibles:</p>
+        <div id="contenedor-discos"></div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const artistaBuscado = decodeURIComponent(urlParams.get('artista'));
+
+        if(artistaBuscado){
+            document.getElementById('nombre-artista-cabecera').innerText = artistaBuscado;
+
+            fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/music-database@main/discos.json?v=${Date.now()}`)
+                .then(res => res.json())
+                .then(baseDatosDiscos => {
+                    const discosDelArtista = baseDatosDiscos.filter(disco => disco.artista.toLowerCase() === artistaBuscado.toLowerCase());
+                    const contenedor = document.getElementById('contenedor-discos');
+                    contenedor.innerHTML = "";
+                    discosDelArtista.forEach(disco => {
+                        const tarjeta = document.createElement('span');
+                        tarjeta.className = "album-card";
+                        tarjeta.style.cursor = "pointer";
+                        tarjeta.innerHTML = `<img src="${disco.img}" class="coverImg" />${disco.titulo} - ${disco.artista}`;
+                        tarjeta.onclick = () => {
+                            window.location.href = `album-reader.html?id=${disco.id}`;
+                        }
+                        contenedor.appendChild(tarjeta);
+                    });
+                });
+        }
+    </script>
+</body>
+</html>
