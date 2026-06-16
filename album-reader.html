@@ -39,6 +39,7 @@
                 titulo.innerHTML = infoDelDisco.titulo;
                 artistaTxt.innerHTML = `<a href="artista.html?artista=${encodeURIComponent(infoDelDisco.artista)}" style="text-decoration: none; color: #fff;">${infoDelDisco.artista}</a>
                 `;
+                console.log(infoDelDisco.repo);
                 cover.src = infoDelDisco.img;
                 cover.style.display = "block";
             } else {
@@ -55,7 +56,7 @@
                     itemLista.style.cursor = "pointer";
 
                     itemLista.onclick = () => {
-                        window.parent.cargarPlaylist(cancionesDelAlbum, i);
+                        window.parent.cargarPlaylist(cancionesDelAlbum, i, infoDelDisco.repo);
                     };
                     
                     itemLista.innerHTML = `${cancion.titulo}`;
