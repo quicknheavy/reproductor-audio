@@ -29,8 +29,8 @@
         }
 
         Promise.all([
-            fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/music-database@main/discos.json?v=${Date.now()}`).then(res => res.json()),
-            fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/music-database@main/canciones.json?v=${Date.now()}`).then(res => res.json())
+            fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica1@main/discos.json?v=${Date.now()}`).then(res => res.json()),
+            fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica1@main/canciones.json?v=${Date.now()}`).then(res => res.json())
         ])
         .then(([baseDatosDiscos, baseDatosCanciones]) => {
             const infoDelDisco = baseDatosDiscos.find(disco => disco.id === idDisco);
