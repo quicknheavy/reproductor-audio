@@ -20,7 +20,7 @@
         if(artistaBuscado){
             document.getElementById('nombre-artista-cabecera').innerText = artistaBuscado;
 
-            fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/music-database@main/discos.json?v=${Date.now()}`)
+            fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica1@main/discos.json?v=${Date.now()}`)
                 .then(res => res.json())
                 .then(baseDatosDiscos => {
                     const discosDelArtista = baseDatosDiscos.filter(disco => disco.artista.toLowerCase() === artistaBuscado.toLowerCase());
