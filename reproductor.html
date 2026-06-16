@@ -42,10 +42,12 @@
         
         let listaActual = [];
         let indiceActual = 0;
+        let repoId = 6;
 
-        function cargarPlaylist(lista, indiceAEmpezar) {
+        function cargarPlaylist(lista, indiceAEmpezar, repo) {
             listaActual = lista;
             indiceActual = indiceAEmpezar;
+            repoId = repo;
             reproducirTema();
         }
 
@@ -53,7 +55,7 @@
         async function reproducirTema() {
             if (listaActual.length > 0) {
                 const cancion = listaActual[indiceActual];
-                const urlCancion = `https://cdn.jsdelivr.net/gh/quicknheavy/music-database@main/${cancion.id}.webm`;
+                const urlCancion = `https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica${repoId}@main/${cancion.id}.webm?v=${Date.now()}`;
 
                 try{
                     const respuesta = await fetch(urlCancion);
