@@ -22,11 +22,11 @@
                 <span id="tiempo-total">0:00</span>
             </div>
             <div class="controles">
-                <button id="anterior" onclick="anteriorCancion()">bac</button>
-                <button id="lilback" onclick="changeTime(false)">lb</button>
+                <button id="anterior" onclick="anteriorCancion()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-player-skip-back"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M20 5v14l-12 -7l12 -7" /><path d="M4 5l0 14" /></svg></button>
+                <button id="lilback" onclick="changeTime(false)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-player-track-prev"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M20.341 4.247l-8 7a1 1 0 0 0 0 1.506l8 7c.647 .565 1.659 .106 1.659 -.753v-14c0 -.86 -1.012 -1.318 -1.659 -.753z" /><path d="M9.341 4.247l-8 7a1 1 0 0 0 0 1.506l8 7c.647 .565 1.659 .106 1.659 -.753v-14c0 -.86 -1.012 -1.318 -1.659 -.753z" /></svg></button>
                 <button id="play" onclick="playPause()">❚❚</button>
-                <button id="lilnext" onclick="changeTime()">ln</button>
-                <button id="siguiente" onclick="siguienteCancion()">nex</button>
+                <button id="lilnext" onclick="changeTime()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-player-track-next"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 5v14l8 -7l-8 -7" /><path d="M14 5v14l8 -7l-8 -7" /></svg></button>
+                <button id="siguiente" onclick="siguienteCancion()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-player-skip-forward"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 5v14l12 -7l-12 -7" /><path d="M20 5l0 14" /></svg></button>
             </div>
         </div>
     </div>
@@ -65,6 +65,7 @@
                     audio.src = urlTemporal;
                     audio.play();
                     titulo.innerText = cancion.titulo;
+                    playButton.innerText = "❚❚";
                     audio.onended = function(){
                         URL.revokeObjectURL(urlTemporal);
                         siguienteCancion();
