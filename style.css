@@ -39,18 +39,30 @@ body#album-reader{
 
 iframe{
     width: 100%;
-    height: 83svh;
+    height: 80svh;
     border: 0;
     border-radius: 0 0 40px 40px;
+}
+
+#reproductor-titulo{
+    font-size: 1.1rem;
+    margin: 0 0 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 85%;
+    text-align: center;
 }
 
 .barra-reproductor{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     width: 100%;
-    height: 17svh;
+    height: 20svh;
+    padding: 10px 0;
+    box-sizing: border-box;
 }
 
 .custom-audio-player{
@@ -79,31 +91,29 @@ iframe{
     flex-grow: 1;
     accent-color: #1db954;
     cursor: pointer;
-    height: 4px;
+    height: 6px;
 }
 
 .controles{
     display: flex;
     padding: 5px;
     align-items: center;
-    justify-content: center;
-    width: 50vw;
-    gap: 5%;
-    border-radius: 50px;
+    justify-content: space-between;
+    width: 85vw;
+    max-width: 450px;
 }
 
 button{
-    min-width: 55px;
-    height: 55px;
-    padding: 12px;;
-    margin: 5px;
+    min-width: 50px;
+    height: 50px;
+    padding: 10px;;
+    margin: 2px;
     color: #ffffff;
     background-color: #1e1e1e;
     border: 1px solid #333333;
     border-radius: 50%;
     font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -117,7 +127,7 @@ button{
 button:active{
     background-color: #1db954;
     color: #000000;
-    transform: scale(0.9);
+    transform: scale(0.92);
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
     border-color: #1db954;
 }
@@ -129,6 +139,7 @@ button#play{
 
 button#play:active{
     background-color: #1db954;
+    color: #000000;
     transform: scale(1.05);
 }
 
@@ -206,13 +217,20 @@ span.playableSong:hover{
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 15px 0;
 }
 
 #buscador{
-    height: 4svh;
-    width: 50%;
-    border-radius: 4svh;
-    padding-left: 2svh;
+    height: 30px;
+    width: 85%;
+    max-width: 500px;
+    border-radius: 25px;
+    padding-left: 20px;
+    font-size: 16px;
+    border: 1px solid #333;
+    background-color: #1f1f1f;
+    color: #fff;
+    outline: none;
 }
 
 .contenedor-album{
