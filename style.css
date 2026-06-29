@@ -187,8 +187,8 @@ span.playableSong:hover{
     background-color: #2e2e2e;
     display: flex;
     flex-direction: column;
-    width: 50%;
-    height: auto;
+    width: 30%;
+    height: 200px;
     text-align: center;
     margin: 10px;
     padding: 10px;
