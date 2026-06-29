@@ -34,10 +34,20 @@
             }
 
             lista.forEach(disco => {
+                const maxCaracteresTitulo = 23;
+                const maxCaracteresArtista = 20;
+                let tituloDisco = disco.titulo;
+                let artistaDisco = disco.artista;
+                if (tituloDisco.length > maxCaracteresTitulo){
+                    tituloDisco = tituloDisco.substring(0, maxCaracteresTitulo - 3) + "...";
+                }
+                if (artistaDisco.length > maxCaracteresArtista){
+                    artistaDisco = artistaDisco.substring(0, maxCaracteresArtista - 3) + "...";
+                }
                 const tarjeta = document.createElement('span');
                 tarjeta.className = 'album-card';
                 tarjeta.style.cursor = "pointer";
-                tarjeta.innerHTML = `<img src="${disco.img}" class="coverImg" />${disco.titulo} - ${disco.artista}`;
+                tarjeta.innerHTML = `<img src="${disco.img}" class="coverImg" />${tituloDisco} - ${artistaDisco}`;
                 tarjeta.onclick = () => {
                     window.location.href = `album-reader.html?id=${disco.id}`;
                 }
