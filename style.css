@@ -188,7 +188,7 @@ span.playableSong:hover{
     display: flex;
     flex-direction: column;
     width: 30%;
-    height: 185px;
+    height: 195px;
     text-align: center;
     margin: 10px;
     padding: 10px;
@@ -259,6 +259,6 @@ img#caratula-album-reader:hover{
 }
 
 .intro{
-    width: 100vw;
-    height: 100svh;
+    height: auto;
+    width: 80%;
 }
