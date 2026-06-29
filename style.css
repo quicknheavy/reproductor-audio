@@ -187,13 +187,12 @@ span.playableSong:hover{
     background-color: #2e2e2e;
     display: flex;
     flex-direction: column;
-    width: 300px;
-    height: 350px;
+    width: 50%;
+    height: auto;
     text-align: center;
     margin: 10px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
 }
 
@@ -205,8 +204,8 @@ span.playableSong:hover{
 }
 
 .coverImg{
-    width: 290px;
-    height: 290px;
+    width: 90%;
+    height: auto;
     padding: 10px;
     object-fit: cover;
     border-radius: 30px;
