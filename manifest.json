@@ -3,7 +3,7 @@
   "name": "Spoti - Mi Reproductor",
   "icons": [
     {
-      "src": "icono.png",
+      "src": "logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
