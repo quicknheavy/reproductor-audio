@@ -18,7 +18,8 @@
         let misDiscos = [];
         const contenedor = document.getElementById('contenedor-discos');
 
-        fetch('https://cdn.jsdelivr.net/gh/quicknheavy/music-database@main/discos.json?v=${Date.now()}')
+        fetch('https://cdn.jsdelivr.net/gh/quicknheavy/music-database@main/discos.json')
+        //fetch('discos.json')
             .then(respuesta => respuesta.json())
             .then(datos => {
                 misDiscos = datos;
