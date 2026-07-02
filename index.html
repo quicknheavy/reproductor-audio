@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.webmanifest">
     <link rel="stylesheet" href="style.css">
     <title>Intro</title>
 </head>
@@ -11,14 +11,14 @@
     <video class="intro" src="intro.mp4" onended="startApp()" autoplay muted></video>
 
     <script>
-        function startApp(){
-            window.location.href = "reproductor.html";
-        }
-
         if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js')
             .then(() => console.log('Service Worker registrado correctamente.'))
             .catch(err => console.error('Error al registrar el SW:', err));
+        }
+
+        function startApp(){
+            window.location.href = "reproductor.html";
         }
     </script>
 </body>
