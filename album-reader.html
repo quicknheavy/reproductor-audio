@@ -32,6 +32,8 @@
         Promise.all([
             fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica1@main/discos.json?v=${Date.now()}`).then(res => res.json()),
             fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica1@main/canciones.json?v=${Date.now()}`).then(res => res.json())
+            //fetch('discos.json').then(res => res.json()),
+            //fetch('canciones.json').then(res => res.json())
         ])
         .then(([baseDatosDiscos, baseDatosCanciones]) => {
             const infoDelDisco = baseDatosDiscos.find(disco => disco.id === idDisco);
