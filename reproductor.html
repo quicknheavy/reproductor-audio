@@ -179,9 +179,9 @@
         async function cargarPlaylistArtista(nombreArtista){
             console.log(`Generando playlist automática para: ${nombreArtista}`);
             try{
-                const resDiscos = await fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica1@main/discos.json?v=${Date.now()}`);
+                const resDiscos = await /*fetch('discos.json')*/fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica1@main/discos.json`);
                 const baseDatosDiscos = await resDiscos.json();
-                const resCanciones = await fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica1@main/canciones.json?v=${Date.now()}`);
+                const resCanciones = await /*fetch('canciones.json')*/fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica1@main/canciones.json`);
                 const baseDatosCanciones = await resCanciones.json();
                 const discosDelArtista = baseDatosCanciones.filter(
                     disco => disco.artista.toLowerCase() === nombreArtista.toLowerCase()
