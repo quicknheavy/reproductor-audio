@@ -1,16 +1,27 @@
 {
   "short_name": "Spoti",
   "name": "Spoti - Mi Reproductor",
-  "icons": [
-    {
-      "src": "logo.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": "index.html",
   "background_color": "#000000",
   "theme_color": "#199946",
   "display": "standalone",
-  "orientation": "portrait"
+  "start_url": "index.html",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }
