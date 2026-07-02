@@ -55,19 +55,17 @@
         async function reproducirTema() {
             if (listaActual.length > 0) {
                 const cancion = listaActual[indiceActual];
-                const urlCancion = `https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica${repoId}@main/${cancion.id}.webm?v=${Date.now()}`;
+                const repoDeLaCancion = cancion.repo || repoId;
+                const urlCancion = `https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica${repoDeLaCancion}@main/${cancion.id}.webm?v=${Date.now()}`;
 
                 try{
-                    const respuesta = await fetch(urlCancion);
-                    if (!respuesta.ok) throw new Error ("Error al descargar la canción");
-                    const archivoBlob = await respuesta.blob();
-                    const urlTemporal = URL.createObjectURL(archivoBlob);
-                    audio.src = urlTemporal;
-                    audio.play();
+                    audio.src = urlCancion;
+                    audio.play().catch(error => {
+                        console.error("Error", error);
+                    });
                     titulo.innerText = cancion.titulo;
                     playButton.innerText = "❚❚";
                     audio.onended = function(){
-                        URL.revokeObjectURL(urlTemporal);
                         siguienteCancion();
                     };
                 } catch (error){
@@ -121,6 +119,41 @@
                 barraProgreso.value = audio.currentTime;
             }
             tiempoActualTxt.innerText = formatearTiempo(audio.currentTime);
+        });
+        
+        let intentandoReconectar = false;
+        let timeoutReconexion = null;
+
+        function reintentarCarga(){
+            console.log("Intentando recuperarse...");
+            const segundoActual = audio.currentTime;
+            audio.load();
+            audio.currentTime = segundoActual;
+            audio.play()
+                .then(() => {
+                    console.log("Conexion recuperada");
+                    intentandoReconectar = false;
+                })
+                .catch(error => {
+                    console.log("Sigue sin haber conexión. Reintentando");
+                    timeoutReconexion = setTimeout(reintentarCarga, 3000);
+                });
+        }
+
+        audio.addEventListener('error', (e) => {
+            console.log("Se ha cortado la reproduccion");
+
+            if (!intentandoReconectar){
+                intentandoReconectar = true;
+                timeoutReconexion = setTimeout(reintentarCarga, 3000);
+            }
+        });
+
+        audio.addEventListener('src', () => {
+            if (timeoutReconexion){
+                clearTimeout(timeoutReconexion);
+                intentandoReconectar = false;
+            }
         })
 
         let usuarioArrastrando = false;
@@ -140,6 +173,49 @@
                 audio.currentTime = audio.currentTime + 10;
             } else {
                 audio.currentTime = audio.currentTime - 10;
+            }
+        }
+
+        async function cargarPlaylistArtista(nombreArtista){
+            console.log(`Generando playlist automática para: ${nombreArtista}`);
+            try{
+                const resDiscos = await fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica1@main/discos.json?v=${Date.now()}`);
+                const baseDatosDiscos = await resDiscos.json();
+                const resCanciones = await fetch(`https://cdn.jsdelivr.net/gh/quicknheavy/almacen-musica1@main/canciones.json?v=${Date.now()}`);
+                const baseDatosCanciones = await resCanciones.json();
+                const discosDelArtista = baseDatosCanciones.filter(
+                    disco => disco.artista.toLowerCase() === nombreArtista.toLowerCase()
+                );
+                if (discosDelArtista.length === 0){
+                    console.warn("No se han encontrado discos del artista");
+                    return;
+                }
+
+                let todasLasCanciones = [];
+
+                discosDelArtista.forEach(disco => {
+                    const cancionesDelDisco = baseDatosCanciones[disco.id];
+                    if (cancionesDelDisco && cancionesDelDisco.length > 0){
+                        const temasConRepo = cancionesDelDisco.map(cancion => ({
+                            ...cancion,
+                            repo: disco.repo
+                        }));
+
+                        todasLasCanciones = todasLasCanciones.concat(temasConRepo);
+                    }
+                });
+
+                if (todasLasCanciones.length === 0) {
+                    console.warn("El artista tiene discos pero no hay canciones disponibles");
+                    return;
+                }
+
+                listaActual = todasLasCanciones;
+                indiceActual = 0;
+                repoId = listaActual[indiceActual].repo;
+                reproducirTema();
+            } catch (error) {
+                console.error("Error al generar la playlist automatica:", error);
             }
         }
     </script>
