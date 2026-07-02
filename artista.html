@@ -9,11 +9,13 @@
 <body>
     <div class="contenedor-album">
         <h1 id="nombre-artista-cabecera">Cargando artista...</h1>
+        <span id="empezar-mix" onclick="window.parent.cargarPlaylistArtista(artistaBuscado)">Mix del artista</span>
         <p>Discos disponibles:</p>
         <div id="contenedor-discos"></div>
     </div>
 
     <script>
+        const mixTxt = document.getElementById('empezarMix');
         const urlParams = new URLSearchParams(window.location.search);
         const artistaBuscado = decodeURIComponent(urlParams.get('artista'));
 
@@ -38,6 +40,7 @@
                     });
                 });
         }
+
     </script>
 </body>
 </html>
